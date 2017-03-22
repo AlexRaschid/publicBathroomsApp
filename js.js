@@ -13,10 +13,20 @@ $(document).ready(function(){
      //   });
         
 
-       // var location = $('#inputLocation').val();
+        var location = $('#inputLocation').val();
+        var lat = location.substring(0, location.indexOf(' '));
+        var long = location.substring(location.indexOf(' ')+ 1, location.length - 1 );
+       
         var URL = "https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json" +
-        "?lat=40.7358630"+
-        "&lng=-73.9910830";
+        "?lat="+ lat +
+        "&lng="+ long;
+
+
+        // "?lat=40.7358630"+
+        // "&lng=-73.9910830";
+
+
+
 
 
         $.get(URL, function(data) {
