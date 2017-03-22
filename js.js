@@ -49,9 +49,9 @@ $(document).ready(function(){
             
         
             
-            var longitude = data.coord.lon
+            var longitude = -999
             
-            var latitude = data.coord.lat
+            var latitude = 400
             
             console.log(latitude);
             console.log(longitude);
