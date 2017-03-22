@@ -2,17 +2,22 @@ $(document).ready(function(){
     //In key, client_id, client_secret, and version(YYYYMMDD) are all pameters. New parameter should me + & 
 
     $('button').on('click', function(event) {
-
+        
+        //Make new button and copy and pase the code into it.
+        //That button will fetch current location.
+        // var locationGeo;
+        
+        // if(navigator.geolocation){
+        //     locationGeo = navigator.geolocation.getCurrentPosition(showPosition);
+        //     console.log(locationGeo);
+        // }else{
+            
+        //     console.log("Cant use geolocations");
+        // }
         
         
         
         
-        
-       // navigator.geolocation.getCurrentPosition(function(position) {
-    //        do_something(position.coords.latitude, position.coords.longitude);
-     //   });
-        
-
         var location = $('#inputLocation').val();
         var lat = location.substring(0, location.indexOf(' '));
         var long = location.substring(location.indexOf(' ')+ 1, location.length - 1 );
@@ -42,9 +47,49 @@ $(document).ready(function(){
             $("#result").html(myresult);
             
             
+        
+            
+            var longitude = data.coord.lon
+            
+            var latitude = data.coord.lat
+            
+            console.log(latitude);
+            console.log(longitude);
+            
+            var mapurl = "https://api.mapbox.com/v4/mapbox.dark/" +
+            longitude+ "," + latitude+ "," +
+            "10/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ"
+            
+            
+            $("img").attr("src", mapurl);
+            console.log(mapurl);
+            
+            
+        
             
         })
     });
+    
+    
+    
+    //The button demanding the geolocation
+     $('buttonGeo').on('click', function(event) {
+         
+        //Make new button and copy and pase the code into it.
+        //That button will fetch current location.
+        var locationGeo;
+        
+        if(navigator.geolocation){
+            locationGeo = navigator.geolocation.getCurrentPosition(showPosition);
+            console.log(locationGeo);
+        }else{
+            
+            console.log("Cant use geolocations");
+        }
+         
+         
+         
+     });
 
     
 })
