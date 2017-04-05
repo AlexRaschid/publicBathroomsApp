@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var locationOn = false;
+    var inputFieldUsed = false;
     var locationCount = 1;
     var locationString;
     var lat;
@@ -12,7 +13,27 @@ $(document).ready(function() {
 
                 
     $('#button').on('click', function(event) {
-        if(locationOn){
+        if( true ){
+
+            //TODO: make string input converted into longitude and latitude
+             locationString = $('#inputLocation').val();
+             var locationLatLong = geocode(locationString);
+             
+             
+            $.get(locationLatLong, function(data){
+                console.log(data);
+                console.log("Longitude: " + data);
+                 
+                
+                
+            });
+            
+             
+             
+             
+
+            
+        }if(locationOn && !inputFieldUsed){
             //variable x marks the spotl geolocation method
             var x = navigator.geolocation;
     
@@ -32,7 +53,7 @@ $(document).ready(function() {
                 var geoLat = lat;
                 var geoLong = long;
                 
-                getGeoLocation(geoLat,geoLong);
+                getLocation(geoLat,geoLong);
                 
             }
             
@@ -42,11 +63,6 @@ $(document).ready(function() {
             function failure() {
                 console.log("The current co-ordenates are unavailable");
             }
-        }else{
-            //TODO: make string input converted into longitude and latitude
-             locationString = $('#inputLocation').val();
-             lat = locationString.substring(0, locationString.indexOf(' '));
-             long = locationString.substring(locationString.indexOf(' ') + 1, locationString.length - 1);
         }
         
         
@@ -73,7 +89,7 @@ $(document).ready(function() {
     
     //gets locaiton
     
-    function getGeoLocation(lat,long){
+    function getLocation(lat,long){
          
          var URL = "https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json" +
             "?lat=" + lat +
@@ -91,7 +107,9 @@ $(document).ready(function() {
                 myresult += "<li>------------------------------</li>";
                 myresult += "<li class='resultItem'>NAME: " + data[i].name + "</li>";
                 myresult += "<li class='resultItem'>STREET: " + data[i].street + "</li>";
-                updateMap(lat,long, 15);
+                myresult += "<li class='resultItem'>ACCESSIBLE: " + data[i].accessible + "</li>";
+
+                //updateMap(lat,long, 15);
 
 
             }
@@ -110,21 +128,37 @@ $(document).ready(function() {
     
 })    
     
-    
-    
+    //Removes and replaces all spaces with + in the string.
+    //Then will pass it through to the API Key
+    //v
+
+// content_copy
 
 
-
-
-function updateMap(lat, long, zoom){
-   
-    $("#map").attr("src", "https://api.mapbox.com/v4/mapbox.dark/0,0,3/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ")
+function geocode(locationString){
     
-        var url = "https://api.mapbox.com/v4/mapbox.dark/" + long + "," + lat + "," + zoom + "/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ"
-    
-        $("#map").attr("src", url);
+    //Splits the string into each character and seperates them with commas
+    //Using a for eac
+    let locationStringTemp = locationString.replace(' ', '+');
+           
+       
+    let geocodeKey = "https://maps.googleapis.com/maps/api/geocode/json?address="+ locationStringTemp +"=AIzaSyD1wqMJyEoUFEuvx1JffGaRgbeq1wRfngM"
+       
+           
+    return geocodeKey;       
+           
 }
+   
 
+    
+
+var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 40.8448, lng: -73.8648},
+          zoom: 8
+        });
+      }
 
 
 

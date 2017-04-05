@@ -13,3 +13,7 @@ body{
     background: url("http://a.abcnews.com/images/Business/GTY_public_restroom_nt_121125_33x16_1600.jpg") no-repeat fixed center;
     background-repeat: no-repeat, repeat;
 }
+
+#map {
+        height: 500px;
+}
