@@ -1,6 +1,5 @@
 $(document).ready(function() {
     var locationOn = false;
-    var inputFieldUsed = false;
     var locationCount = 1;
     var locationString;
     var lat;
@@ -13,27 +12,34 @@ $(document).ready(function() {
 
                 
     $('#button').on('click', function(event) {
-        if( true ){
+        //If location is turned off, then manualInput is ran first
+        //If location is on, then manual input wont be used.
+        if( !locationOn ){
 
             //TODO: make string input converted into longitude and latitude
              locationString = $('#inputLocation').val();
-             var locationLatLong = geocode(locationString);
+             var geocodeURL = makeGeocodeURL(locationString);
              
              
-            $.get(locationLatLong, function(data){
+            $.get(geocodeURL, function(data){
                 console.log(data);
-                console.log("Longitude: " + data);
-                 
+                console.log("Latitude: " + data.results["0"].geometry.location.lat);
+                console.log("Longitude: " + data.results["0"].geometry.location.lng);
+                
+                let lat = data.results["0"].geometry.location.lat;
+                let lng = data.results["0"].geometry.location.lng;
+                
+                initMap(lat, lng);
+                getLocation(lat,lng);
+ 
                 
                 
             });
-            
-             
              
              
 
             
-        }if(locationOn && !inputFieldUsed){
+        }else{
             //variable x marks the spotl geolocation method
             var x = navigator.geolocation;
     
@@ -44,16 +50,17 @@ $(document).ready(function() {
             //If the geolocation is able to be reached
             function success(position) {
                 //
-                lat = position.coords.latitude;
-                long = position.coords.longitude;
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
                 
                 console.log("Lat = " + lat);
-                console.log("Long = " + long);
+                console.log("Long = " + lng);
                 
-                var geoLat = lat;
-                var geoLong = long;
+                let geoLat = lat;
+                let geoLng = lng;
                 
-                getLocation(geoLat,geoLong);
+                initMap(lat, lng);
+                getLocation(geoLat,geoLng);
                 
             }
             
@@ -89,16 +96,17 @@ $(document).ready(function() {
     
     //gets locaiton
     
-    function getLocation(lat,long){
+    function getLocation(lat,lng){
          
-         var URL = "https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json" +
+         var bathroomURL = "https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json" +
             "?lat=" + lat +
-            "&lng=" + long;
+            "&lng=" + lng;
          
          
-         $.get(URL, function(data) {
-
-
+         $.get(bathroomURL, function(data) {
+            
+            
+            var mapMarkers = [];
             var myresult = "";
             $("#myresult").html(" ");
             
@@ -110,7 +118,7 @@ $(document).ready(function() {
                 myresult += "<li class='resultItem'>ACCESSIBLE: " + data[i].accessible + "</li>";
 
                 //updateMap(lat,long, 15);
-
+                // mapMarkers[i] = createMapMarker(lat, lng, data, i);
 
             }
             $("#result").html(myresult);
@@ -135,14 +143,14 @@ $(document).ready(function() {
 // content_copy
 
 
-function geocode(locationString){
+function makeGeocodeURL(locationString){
     
     //Splits the string into each character and seperates them with commas
     //Using a for eac
-    let locationStringTemp = locationString.replace(' ', '+');
+    let locationStringTemp = locationString.split(' ').join('+');
            
        
-    let geocodeKey = "https://maps.googleapis.com/maps/api/geocode/json?address="+ locationStringTemp +"=AIzaSyD1wqMJyEoUFEuvx1JffGaRgbeq1wRfngM"
+    let geocodeKey = "https://maps.googleapis.com/maps/api/geocode/json?address="+ locationStringTemp +"&key=AIzaSyD1wqMJyEoUFEuvx1JffGaRgbeq1wRfngM"
        
            
     return geocodeKey;       
@@ -152,13 +160,35 @@ function geocode(locationString){
 
     
 
-var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.8448, lng: -73.8648},
-          zoom: 8
-        });
+      function initMap(lat, lng) {
+        
+          var map = new google.maps.Map(document.getElementById('map'), 
+          {
+                center: {lat: lat, 
+                         lng: lng},
+                zoom: 16
+          });
+          
+          
+          
+          
       }
+      
+    //   function createMapMarker(lat,lng, bathroomData, i){
+       
+       
+    //         var mapMarker = new google.maps.Marker({
+    //             position: {lat, lng},
+    //             map: map,
+    //             title: bathroomData[i].name
+    //           });
+              
+    //         return mapMarker;
+       
+          
+          
+    //   }
+      
 
 
 
