@@ -4,10 +4,10 @@ $(document).ready(function() {
     var locationString;
     var lat;
     var long;
+    var map;
     var mapurl = "https://api.mapbox.com/v4/mapbox.dark/" +
                 long + "," + lat + "," +
                 "10/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ";
-    
                 
 
                 
@@ -106,7 +106,6 @@ $(document).ready(function() {
          $.get(bathroomURL, function(data) {
             
             
-            var mapMarkers = [];
             var myresult = "";
             $("#myresult").html(" ");
             
@@ -116,9 +115,8 @@ $(document).ready(function() {
                 myresult += "<li class='resultItem'>NAME: " + data[i].name + "</li>";
                 myresult += "<li class='resultItem'>STREET: " + data[i].street + "</li>";
                 myresult += "<li class='resultItem'>ACCESSIBLE: " + data[i].accessible + "</li>";
+                addicon(map, data, i, lat, lng);
 
-                //updateMap(lat,long, 15);
-                // mapMarkers[i] = createMapMarker(lat, lng, data, i);
 
             }
             $("#result").html(myresult);
@@ -150,44 +148,102 @@ function makeGeocodeURL(locationString){
     let locationStringTemp = locationString.split(' ').join('+');
            
        
-    let geocodeKey = "https://maps.googleapis.com/maps/api/geocode/json?address="+ locationStringTemp +"&key=AIzaSyD1wqMJyEoUFEuvx1JffGaRgbeq1wRfngM"
+    let geocodeKey = "https://maps.googleapis.com/maps/api/geocode/json?address="+ locationStringTemp +"&key=AIzaSyD1wqMJyEoUFEuvx1JffGaRgbeq1wRfngM";
        
            
     return geocodeKey;       
            
 }
-   
 
-    
-
-      function initMap(lat, lng) {
-        
-          var map = new google.maps.Map(document.getElementById('map'), 
-          {
-                center: {lat: lat, 
-                         lng: lng},
-                zoom: 16
-          });
-          
-          
-          
-          
-      }
       
-    //   function createMapMarker(lat,lng, bathroomData, i){
-       
-       
-    //         var mapMarker = new google.maps.Marker({
-    //             position: {lat, lng},
-    //             map: map,
-    //             title: bathroomData[i].name
-    //           });
-              
-    //         return mapMarker;
-       
-          
-          
-    //   }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+function addicon(map,URL_DATA, DATA_INDEX, lati, long) {
+    var marker = new google.maps.Marker({
+        "position": {
+            lat: lati,
+            lng: long
+        },
+        "map": map
+    });
+    //var contentString = "<li class='resultItem'>NAME: " + URL_DATA[DATA_INDEX].name + "</li>"
+    
+    
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: "<li class='resultItem'>NAME: " + URL_DATA[DATA_INDEX].name + "</li>"
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+}
+
+
+
+
+
+function initMap(lati, long) {
+    // var uluru = {
+    //     lat: lati,
+    //     lng: long
+    // };
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: lati,
+            lng: long
+        },
+        zoom: 15,
+        //center: uluru
+    });
+   // var contentString = ;
+    var infowindow = new google.maps.InfoWindow({
+        content: "<h1>Current Location</h3>"
+    });
+    var marker = new google.maps.Marker({
+        position: {
+            lat: lati,
+            lng: long
+        },
+        map: map
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+
+    // addicon(map, 40.750, -73.993, 'penn station');
+    // addicon(map, 40.754, -73.990, 'harlem');
+}     
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
 
 
