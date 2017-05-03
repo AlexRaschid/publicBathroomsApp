@@ -1,13 +1,17 @@
-$(document).ready(function() {
-    var locationOn = false;
+ var locationOn = false;
     var locationCount = 1;
     var locationString;
     var lat;
     var long;
-    var map;
+    var mapGlobal;
+    
     var mapurl = "https://api.mapbox.com/v4/mapbox.dark/" +
                 long + "," + lat + "," +
                 "10/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ";
+
+
+$(document).ready(function() {
+   
                 
 
                 
@@ -54,12 +58,14 @@ $(document).ready(function() {
                 let lng = position.coords.longitude;
                 
                 console.log("Lat = " + lat);
-                console.log("Long = " + lng);
-                
-                let geoLat = lat;
-                let geoLng = lng;
-                
+                console.log("Long hello= " + lng);
+                console.log("After hello");
+                var geoLat = lat;
+                var geoLng = lng;
+                console.log("After lat and lng set to new vars");
+                console.log("b4 initMap");
                 initMap(lat, lng);
+                console.log("after initMap");
                 getLocation(geoLat,geoLng);
                 
             }
@@ -104,18 +110,21 @@ $(document).ready(function() {
          
          
          $.get(bathroomURL, function(data) {
+             console.log(data);
             
             
             var myresult = "";
             $("#myresult").html(" ");
             
+            
+            var numOfLocations = 20;
             for (var i = 0; i < 10; i++) {
                 //TODO add map around here
                 myresult += "<li>------------------------------</li>";
                 myresult += "<li class='resultItem'>NAME: " + data[i].name + "</li>";
                 myresult += "<li class='resultItem'>STREET: " + data[i].street + "</li>";
                 myresult += "<li class='resultItem'>ACCESSIBLE: " + data[i].accessible + "</li>";
-                addicon(map, data, i, lat, lng);
+                addicon(mapGlobal, data, i);
 
 
             }
@@ -171,11 +180,12 @@ function makeGeocodeURL(locationString){
       
       
 
-function addicon(map,URL_DATA, DATA_INDEX, lati, long) {
+function addicon(map,URL_DATA, DATA_INDEX) {
+   
     var marker = new google.maps.Marker({
         "position": {
-            lat: lati,
-            lng: long
+            lat: URL_DATA[DATA_INDEX].latitude,
+            lng: URL_DATA[DATA_INDEX].longitude
         },
         "map": map
     });
@@ -200,6 +210,8 @@ function initMap(lati, long) {
     //     lat: lati,
     //     lng: long
     // };
+    
+    console.log("initMap1 lati: " + lati);
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: lati,
@@ -212,16 +224,21 @@ function initMap(lati, long) {
     var infowindow = new google.maps.InfoWindow({
         content: "<h1>Current Location</h3>"
     });
+    console.log( "initMap lat: " + lati);
+    
     var marker = new google.maps.Marker({
         position: {
+            
             lat: lati,
             lng: long
         },
-        map: map
+        map: mapGlobal
     });
     marker.addListener('click', function() {
         infowindow.open(map, marker);
     });
+    
+    mapGlobal = map;
 
     // addicon(map, 40.750, -73.993, 'penn station');
     // addicon(map, 40.754, -73.990, 'harlem');
