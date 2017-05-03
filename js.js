@@ -105,8 +105,10 @@ $(document).ready(function() {
     function getLocation(lat,lng){
          
          var bathroomURL = "https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json" +
-            "?lat=" + lat +
+            "?&per_page=100" + //Number of object items in restroom APi
+            "&lat=" + lat +
             "&lng=" + lng;
+            
          
          
          $.get(bathroomURL, function(data) {
@@ -117,8 +119,8 @@ $(document).ready(function() {
             $("#myresult").html(" ");
             
             
-            var numOfLocations = 20;
-            for (var i = 0; i < 10; i++) {
+            var numOfLocations = 50;
+            for (var i = 0; i < numOfLocations; i++) {
                 //TODO add map around here
                 myresult += "<li>------------------------------</li>";
                 myresult += "<li class='resultItem'>NAME: " + data[i].name + "</li>";
@@ -194,7 +196,11 @@ function addicon(map,URL_DATA, DATA_INDEX) {
     
     
     var infowindow = new google.maps.InfoWindow({
-        content: "<li class='resultItem'>NAME: " + URL_DATA[DATA_INDEX].name + "</li>"
+        content: "<li class='resultItem'><b>Store Name</b>: " + URL_DATA[DATA_INDEX].name + "</li>" +
+                "<li class='resultItem'><b>Street Adress</b>: " + URL_DATA[DATA_INDEX].street + "</li>" + 
+                "<li class='resultItem'><b>Is it accessible?</b>: " + URL_DATA[DATA_INDEX].accessible + "</li>" + 
+                "<li class='resultItem'><b>User Direction</b>: " + URL_DATA[DATA_INDEX].directions + "</li>" + 
+                "<li class='resultItem'><b>User Comment</b>: " + URL_DATA[DATA_INDEX].comment + "</li>"
     });
     marker.addListener('click', function() {
         infowindow.open(map, marker);
@@ -211,7 +217,6 @@ function initMap(lati, long) {
     //     lng: long
     // };
     
-    console.log("initMap1 lati: " + lati);
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: lati,
@@ -224,15 +229,26 @@ function initMap(lati, long) {
     var infowindow = new google.maps.InfoWindow({
         content: "<h1>Current Location</h3>"
     });
-    console.log( "initMap lat: " + lati);
-    
+
+
+
+
+
+    var pinColor = "41A317";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+
+
+    console.log("Marker attempts");
     var marker = new google.maps.Marker({
-        position: {
-            
+        "position": {
             lat: lati,
             lng: long
         },
-        map: mapGlobal
+        "map": map,
+        "icon": pinImage
     });
     marker.addListener('click', function() {
         infowindow.open(map, marker);
@@ -240,9 +256,21 @@ function initMap(lati, long) {
     
     mapGlobal = map;
 
+
+
     // addicon(map, 40.750, -73.993, 'penn station');
     // addicon(map, 40.754, -73.990, 'harlem');
 }     
+
+// infoWindow = new google.maps.InfoWindow; //static infoWindow for all your markers
+// google.maps.event.addDomListener(window, 'load', function() {
+//   //create your markers here
+//   google.maps.event.addListener(marker, 'click', function() {
+//               infoWindow.open(map1, marker); //take care with case-sensitiveness
+//           });
+// });
+
+
      
       
       

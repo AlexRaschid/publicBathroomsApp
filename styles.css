@@ -17,3 +17,9 @@ body{
 #map {
         height: 500px;
 }
+
+.resultItem{
+    list-style: none;
+    
+    
+}
