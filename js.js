@@ -1,3 +1,6 @@
+ 
+ 
+ //Global Variables
  var locationOn = false;
  var locationCount = 1;
  var locationString;
@@ -5,7 +8,6 @@
  var long;
  var mapGlobal
  var currentInfoWindow;
-
  var mapurl = "https://api.mapbox.com/v4/mapbox.dark/" +
      long + "," + lat + "," +
      "10/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ";
@@ -304,26 +306,6 @@
  //               infoWindow.open(map1, marker); //take care with case-sensitiveness
  //           });
  // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
