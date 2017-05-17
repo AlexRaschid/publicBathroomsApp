@@ -1,5 +1,3 @@
- 
- 
  //Global Variables
  var locationOn = false;
  var locationCount = 1;
@@ -11,6 +9,8 @@
  var mapurl = "https://api.mapbox.com/v4/mapbox.dark/" +
      long + "," + lat + "," +
      "10/600x600.png?access_token=pk.eyJ1IjoiZG9kZ2VyNDg3IiwiYSI6ImNpeXcxY2xraDAwZHUyd21wam00NWc5NXIifQ.VNP3UdlAUjSJVz3_FrBkEQ";
+
+
 
 
  $(document).ready(function() {
@@ -46,8 +46,7 @@
 
 
 
-         }
-         else {
+         } else {
              //variable x marks the spotl geolocation method
              var x = navigator.geolocation;
 
@@ -95,8 +94,7 @@
              console.log("GeoLocation turned on");
              $("#geoOn").css("background-color", "green")
 
-         }
-         else {
+         } else {
              locationOn = false;
              console.log("GeoLocation turned off");
              $("#geoOn").css("background-color", "red")
@@ -148,7 +146,6 @@
 
 
 
-
  })
 
  //Removes and replaces all spaces with + in the string.
@@ -175,21 +172,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
  function addicon(map, URL_DATA, DATA_INDEX) {
 
      var marker = new google.maps.Marker({
@@ -209,40 +191,39 @@
              "<li class='resultItem'><b>User Comment</b>: " + URL_DATA[DATA_INDEX].comment + "</li>"
      });
      marker.addListener('click', function() {
-         
+
          // close the previously opened window
          if (currentInfoWindow) {
              currentInfoWindow.close();
          }
-         
+
          // save this info window in an external variable
          currentInfoWindow = infowindow;
-         
+
          // Open the window for this marker.
          infowindow.open(map, marker);
-         
+
      });
-     
-     
-         //  google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
-    //      return function() {
-    //          closeLastOpenedInfoWindo();
-    //          infowindow.setContent(content);
-    //          infowindow.open(map, marker);
-    //          lastOpenedInfoWindow = infowindow;
-    //      };
-    //  })(marker, makrerdata[i], infowindow));
+
+
+     //  google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
+     //      return function() {
+     //          closeLastOpenedInfoWindo();
+     //          infowindow.setContent(content);
+     //          infowindow.open(map, marker);
+     //          lastOpenedInfoWindow = infowindow;
+     //      };
+     //  })(marker, makrerdata[i], infowindow));
 
 
 
-    //  function closeLastOpenedInfoWindo() {
-    //      if (lastOpenedInfoWindow) {
-    //          lastOpenedInfoWindow.close();
-    //      }
-    //  }
+     //  function closeLastOpenedInfoWindo() {
+     //      if (lastOpenedInfoWindow) {
+     //          lastOpenedInfoWindow.close();
+     //      }
+     //  }
 
  }
-
 
 
 
@@ -265,7 +246,6 @@
      var infowindow = new google.maps.InfoWindow({
          content: "<h1>Current Location</h3>"
      });
-
 
 
 
@@ -307,13 +287,9 @@
  //           });
  // });
 
-
-
-
  //API Documentation:
  //https://www.refugerestrooms.org/api/docs/#!/restrooms/GET_version_restrooms_format
  //API key based on location
  //https://www.refugerestrooms.org:443/api/v1/restrooms/by_location.json?lat=40.7128%C2%B0&lng=-74.0059
  // Mapbox API:
  // https://www.mapbox.com/api-documentation/?language=JavaScript#static
- 
