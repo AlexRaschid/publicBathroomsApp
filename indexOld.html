@@ -21,31 +21,35 @@
                     <h1>Welcome to the bathroom finder!</h1>
                 </div>
             </div>
-                
-                <div class ="col-md-1"></div>
-                <div class= "col-md-4">
-                    <input id= "inputLocation" type="text" name="location"/>
-                </div>
-                <div class ="col-md-2">
-                    hello <div class="tooltipfoo">Need Help? <span class="tooltiptextfoo">"Sample Text"</span></div>
+            <div class = "row">
+                    <div id = "inputField" class="col-md-3">
+                        <h3>Type in your location</h3>
+                        <input id= "inputLocation" type="text" name="location"/>
+                        <h3>Toggle Between usage of Geolocation and InputField <br/>
+                            (Red is geo off, Green is geo on)</h3>
+                        <button id="buttonGeo">Toggle current position usage</button>
+                        <div id = "geoOn"></div>
                         
-                </div>
-                <div  class= "col-md-4">
-                    <button id="buttonGeo">Toggle current position usage</button>
-                    <div id = "geoOn"></div>
-                </div>
-                <div class ="col-md-1"></div>
-                
-                
-                
-                
-                <div id = "inputField" class="col-md-12">
-                            <div id="map"></div>
-                            <ul id="result">
-                                <img id="map2" height="500px" src=" ">
-                            </ul>
-                </div>
+                        
+                        <h3>After location input is done, press Display Output</h3>
+                        <button id="button">Display Output</button>
+                    </div>
+                    
+                    <div id = "inputField" class="col-md-9">
+                                <div id="map"></div>
+                                <ul id="result">
+                                    <img id="map2" height="500px" src=" ">
+
+    
+                                </ul>
+                    </div>
             </div>
+            
         </div>
+        
+        
+        
+        
+        
     </body>
 </html>

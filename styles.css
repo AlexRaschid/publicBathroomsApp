@@ -3,15 +3,20 @@
 }
 
 #geoOn{
-    height: 50px;
-    width: 50px;
+    height: 26px;
+    width: 26px;
     background-color: red;
+    border: none;
+    vertical-align: middle;
+    float: left;
+    padding-left: 10px;
     
 }
 
 body{
-    background: url("http://a.abcnews.com/images/Business/GTY_public_restroom_nt_121125_33x16_1600.jpg") no-repeat fixed center;
-    background-repeat: no-repeat, repeat;
+   /* background: url("http://a.abcnews.com/images/Business/GTY_public_restroom_nt_121125_33x16_1600.jpg") no-repeat fixed center;
+   */
+   background-repeat: no-repeat, repeat;
 }
 
 #map {
@@ -22,4 +27,37 @@ body{
     list-style: none;
     
     
+}
+
+.col-md-4,
+.col-md-2{
+     padding-top: 20px;   
+     padding-bottom: 20px;   
+}
+
+.tooltipfoo {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    visibility: visible;
+}
+
+/* Tooltip text */
+.tooltipfoo .tooltiptextfoo {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipfoo:hover .tooltiptextfoo {
+    visibility: visible;
 }
