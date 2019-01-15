@@ -14,8 +14,7 @@
 }
 
 body{
-   /* background: url("http://a.abcnews.com/images/Business/GTY_public_restroom_nt_121125_33x16_1600.jpg") no-repeat fixed center;
-   */
+    background: url("http://a.abcnews.com/images/Business/GTY_public_restroom_nt_121125_33x16_1600.jpg") no-repeat fixed center;
    background-repeat: no-repeat, repeat;
 }
 
@@ -35,7 +34,7 @@ body{
      padding-bottom: 20px;   
 }
 
-.tooltipfoo {
+.tooltip {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
@@ -43,7 +42,7 @@ body{
 }
 
 /* Tooltip text */
-.tooltipfoo .tooltiptextfoo {
+.tooltip .tooltiptext{
     visibility: hidden;
     width: 120px;
     background-color: black;

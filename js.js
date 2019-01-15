@@ -121,7 +121,7 @@
 
 
 
-     //Adds the api api data foor different catigorys, such ass Street Adress and accessible
+     //Adds the api api data foor different catigories, such ass Street Adress and accessible
      
      var infowindow = new google.maps.InfoWindow({
          content: "<li class='resultItem'><b>Store Name</b>: " + URL_DATA[DATA_INDEX].name + "</li>" +
