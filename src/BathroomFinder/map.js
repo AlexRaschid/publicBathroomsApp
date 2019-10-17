@@ -24,9 +24,7 @@ export class BathroomMap extends React.Component{
                     defaultCenter={this.state.center}
                     defaultZoom={this.state.zoom}
                 >
-                    
                 </GoogleMapReact>
-
             </div>
         );
     }
