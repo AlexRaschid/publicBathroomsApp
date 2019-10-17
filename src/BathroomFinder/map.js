@@ -21,10 +21,10 @@ export class BathroomMap extends React.Component{
 
     render() {
         return (
-            <div style={{width: '100vw', height: '100vh'}}>
+            
                 <Map google={window.google} zoom={14} initialCenter={this.state.center}>
                 </Map>
-            </div>
+            
         );
     }
 }
