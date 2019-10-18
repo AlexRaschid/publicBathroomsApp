@@ -33,7 +33,7 @@ export class NavBar extends React.Component{
     render(){
         return(
             <div className="NavBar">
-            <AppBar position="static">
+            <AppBar position="absolute">
                 <Toolbar>
                     <IconButton edge="start" aria-label="menu" color="inherit">
                     <MenuIcon />
