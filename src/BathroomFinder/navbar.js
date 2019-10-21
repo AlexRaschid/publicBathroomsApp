@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import { purple } from '@material-ui/core/colors';
+import Drawer from '@material-ui/core/Drawer';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,18 +29,30 @@ export class NavBar extends React.Component{
         this.state = {
             leftDrawer: false,
         }
+
+        this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
+    toggleDrawer(){
+        this.state = {leftDrawer: !this.state.leftDrawer}
+        console.log(this.state.leftDrawer);
+        this.setState(this.state);
+
+        
+    }
 
     render(){
         return(
             <div className="NavBar">
             <AppBar position="absolute">
                 <Toolbar>
-                    <IconButton edge="start" aria-label="menu" color="inherit">
-                    <MenuIcon />
+                    <IconButton onClick={this.toggleDrawer} edge="start" aria-label="menu" color="inherit">
+                        <MenuIcon />
+                        <Drawer open={this.state.leftDrawer} onClose={() => {return false;}}>
+                        <MenuItem >Menu Item 1</MenuItem>
+                        </Drawer>
                     </IconButton>
-                    <Typography className={useStyles.title} variant="h6"  color="inherit">
+                    <Typography variant="h6"  color="inherit">
                         Map
                     </Typography>
                 </Toolbar>
