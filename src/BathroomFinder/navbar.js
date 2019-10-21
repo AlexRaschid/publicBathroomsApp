@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { purple } from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,13 +31,13 @@ export class NavBar extends React.Component{
             leftDrawer: false,
         }
 
+        console.log(this.state.leftDrawer);
         this.toggleDrawer = this.toggleDrawer.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
     toggleDrawer(){
         this.state = {leftDrawer: !this.state.leftDrawer}
-        console.log(this.state.leftDrawer);
         this.setState(this.state);  
     }
 
@@ -53,7 +54,11 @@ export class NavBar extends React.Component{
                     <IconButton onClick={this.toggleDrawer} edge="start" aria-label="menu" color="inherit">
                         <MenuIcon />
                         <Drawer open={this.state.leftDrawer} onClose={this.handleClose}>
-                        <MenuItem linkbutton={'true'} href="https://google.com">Menu Item 1</MenuItem>
+                            <Link href="https://google.com" onClick={this.preventDefault}>
+                                <MenuItem  >Menu Item 1 Link</MenuItem>
+                            </Link>
+                            <MenuItem  href="https://google.com">Menu Item 1</MenuItem>
+                            <MenuItem linkbutton={'true'} href="https://google.com">Menu Item 1</MenuItem>
                         </Drawer>
                     </IconButton>
                     <Typography variant="h6"  color="inherit">
